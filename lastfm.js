@@ -12,10 +12,7 @@ function loadCountries(){
 			try {
 				var lat = geodata.results[0].geometry.location.lat;
 				var lon = geodata.results[0].geometry.location.lng;
-			} catch(error) {
-				toastr.error('There was an error performing the search');
-			}
-			$.get("http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=" + country + "&api_key=c6f5ad25b6120e5e42f312f4b6ebf4ad&format=json", function(data){
+				$.get("http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=" + country + "&api_key=c6f5ad25b6120e5e42f312f4b6ebf4ad&format=json", function(data){
 				try {
 					var artistsArray = data.topartists.artist;
 					var topten = artistsArray.slice(0,10);
@@ -29,6 +26,9 @@ function loadCountries(){
 			}).fail(function() {
 				throw 'ajax fail';
 			});
+			} catch(error) {
+				toastr.error('There was an error performing the search');
+			}
 					
 		});	
 	} catch(error) {
