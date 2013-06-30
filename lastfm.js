@@ -2,26 +2,21 @@
 $(document).ready(function() {
 $("#txt_input").focus();
     $("#submit_btn").click(loadCountries);
-	$("#txt_input").keydown(function(e){
-	if(e.keyCode==13){
-	loadCountries();
-	}
-	
-	
-	});
-
 });
 
 function loadCountries(){
 	var country = $("#txt_input").val();
+	toastr.info('Loading bands');
 	$.get("http://maps.googleapis.com/maps/api/geocode/json?address=%22"+country+"%22&sensor=false", function(geodata){
 		var lat = geodata.results[0].geometry.location.lat;
 		var lon = geodata.results[0].geometry.location.lng;
 		$.get("http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=" + country + "&api_key=c6f5ad25b6120e5e42f312f4b6ebf4ad&format=json", function(data){
 			var artistsArray = data.topartists.artist;
 			var topten = artistsArray.slice(0,10);
+			var htmlTopTen = getTableFromArtists(topten);
 			L.marker([lat, lon]).addTo(map)
-				.bindPopup(getTableFromArtists(topten)).openPopup();
+				.bindPopup(htmlTopTen).openPopup();
+			toastr.success('Successfuly finished the search.');
 		});
 				
 	});	
