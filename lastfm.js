@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 $("#txt_input").focus();
     $("#submit_btn").click(loadCountries);
@@ -41,7 +40,7 @@ function getTableFromArtists(artists) {
     var rows = [];
     for (var i = 0 ; i < artists.length ; i++) {
         var artist = artists[i];
-        var row = '<tr><td><a class="row_href" href="' + artist.url + '">' + artist.name + '</a></td><td>' + artist.listeners + '</td></tr>';
+        var row = '<tr><td><a class="row_href" target="_blank" href="' + artist.url + '">' + artist.name + '</a></td><td>' + artist.listeners + '</td></tr>';
         rows.push(row);
     }
     var html = '<table border="0">';
